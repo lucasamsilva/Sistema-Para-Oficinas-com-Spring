@@ -1,0 +1,19 @@
+@font-face {
+	src:url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+}
+
+body {
+	padding: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1em;
+	background-color: MintCream;
+}
+
+h1 {
+	text-align: center;
+}
+
+
+button {
+	margin: 2.5px
+}

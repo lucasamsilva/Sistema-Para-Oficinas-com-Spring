@@ -1,0 +1,13 @@
+body {
+	background-color: MintCream;
+}
+
+#form-login {
+	background-color: white;
+	border: solid 0.5px MediumSeaGreen;
+	border-radius: 5px;
+}
+
+#esquecisenha {
+	margin: 0px;
+}
