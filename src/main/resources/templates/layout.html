@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript" th:src="@{/js/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.js}"></script>
+
+
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"></link>
+<link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.css}"></link>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <header th:replace="fragments/header :: cabecalho"></header>
+	 <div class="app-content">
+	     <section layout:fragment="conteudo"></section>
+	 </div>
+</body>
+</html>

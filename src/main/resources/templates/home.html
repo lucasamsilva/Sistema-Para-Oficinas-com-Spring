@@ -1,60 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thmeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem vindo!</title>
 
-    <!-- IMPORTAÇÃO DO CSS   -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}">
-    </link>
-    <link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.css}">
-    </link>
-
-    <!-- IMPORTAÇÃO DO JAVASCRIPT -->
-    <script type="text/javascript" th:src="@{/js/jquery/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.js}"></script>
-    <script type="text/javascript" th:src="@{/js/scripts/header.js}"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
-    <style>
-        body {
-            background-color: MintCream;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <header id="cabecalho"></header>
-
+<section layout:fragment="conteudo">
     <!-- Large modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
         modal</button>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content p-2">
                 <form class="d-flex flex-column justify-content-center m-2" th:action="@{salvarcarro}" method="post"
                     th:object="${carros}">
                     <i class="fa fa-car fa-4x align-self-center" aria-hidden="true"></i>
                     <div class="form-group">
-                        <select class="form-control" name="montadoras" id="mont">
-                            <option value="-1" th:field="*{montadora}">(MONTADORAS)</option>
+                        <select class="form-control" name="montadoras" id="mont" th:field="*{montadora}">
+                            <option value="-1"  style="width:300px;">(MONTADORAS)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                    	<select class="form-control" name="modelos" id="mod"></select>
+                    	<select class="form-control" name="modelos" id="mod" th:field="*{modelo}"></select>
                     </div>
-						<input type="text" th:field="*{modelo}" id="inputmont">
-						<input type="text" th:field="*{montadora}" id="inputmod">
                     <div class="form-group">
-                        <label for="username">placa</label> <input type="text" name="username" th:field="*{placa}"
-                            class="form-control" id="username" aria-describedby="username" placeholder="Seu Nome">
+                        <input class="form-control" type="text" th:field="*{placa}" placeholder="Placa">
                     </div>
                     <div class="form-group d-flex align-self-center justify-content-center">
                         <button type="submit" class="btn btn-success m-1" style="width:100px;">Salvar</button>
@@ -65,53 +36,8 @@
             </div>
         </div>
     </div>
-</body>
-<script>
-    $.ajax({
-        type: "get",
-        url: "http://fipeapi.appspot.com/api/1/carros/marcas.json",
-        success: function (data) {
-            let elemento = document.getElementById("mont");
-            for (let i = 0; i < data.length; i++) {
-                elemento.innerHTML = elemento.innerHTML +
-                    '<option value="' + data[i]['id'] + '">' + data[i]['name'] + '</option>';
-            }
-        }
-    });
-   
-    $('#mod').change(function (){
-		$("#inputmod").val(montadora = $('#mod option:selected').text());
-    })
-    
-    $('#mont').change(function () {
-    	montadora = $('#mont option:selected').text();
-    	console.log(montadora);
-		$("#inputmont").val(montadora);
-        $('#mod').empty();
-        let idselect = $("#mont option:selected").val();
-        $.ajax({
-            type: "get",
-            url: `http://fipeapi.appspot.com/api/1/carros/veiculos/${idselect}.json`,
-            success: function (data) {
-                let elemento = document.getElementById("mod");
-                for (let i = 0; i < data.length; i++) {
-                    elemento.innerHTML = elemento.innerHTML +
-                        '<option value="' + data[i]['id'] + '">' + data[i]['name'] + '</option>';
-                }
-            }
-        });
-    })
 
-    $('#mont').select2({
-        placeholder: "Selecione",
-        allowClear: true
-    })
+    <script type="text/javascript" th:src="@{/js/scripts/home.js}"></script>
 
-    $('#mod').select2({
-        placeholder: "Selecione",
-        allowClear: true
-    })
-
-</script>
-
+</section>
 </html>

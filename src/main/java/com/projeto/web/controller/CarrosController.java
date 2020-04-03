@@ -24,9 +24,9 @@ public class CarrosController {
 	}
 	
 	@RequestMapping(value = "/salvarcarro",method = RequestMethod.POST)
-	public void save(Carros carros) {
+	public String save(Carros carros) {
 		cs.save(carros);
-		
+		return "redirect:/home";
 	}
 	
 }
