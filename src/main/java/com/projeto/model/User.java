@@ -2,12 +2,16 @@ package com.projeto.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -42,6 +46,10 @@ public class User implements Serializable, UserDetails{
 	@NotBlank
 	@Email
 	private String email;
+	@ManyToMany
+	@JoinTable(name = "TAB_USUARIO_ROLE", joinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName = "id")},
+	inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+	private List<Role> roles;
 
 	public Long getId() {
 		return id;
@@ -71,6 +79,12 @@ public class User implements Serializable, UserDetails{
 		this.password = password;
 	}	
 	
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return null;

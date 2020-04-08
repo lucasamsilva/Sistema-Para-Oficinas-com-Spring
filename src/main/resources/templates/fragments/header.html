@@ -7,7 +7,7 @@
 
 <body th:fragment="cabecalho">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/home">
   	<i class="fa fa-wrench" aria-hidden="true"></i>
   	Oficinet
   </a>
@@ -17,7 +17,7 @@
 
   <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown active">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Serviços
         </a>
@@ -26,17 +26,26 @@
           <a class="dropdown-item" href="#">Buscar Ordens</a>
         </div>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Fornecedores</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Clientes</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Carros</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Mecanicos</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Administração
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/user/list">Usuários</a>
+          <a class="dropdown-item" href="/admin/roles">Roles</a>
+        </div>
       </li>
     </ul>
     <a href="/logout" class="btn btn-danger"><i class="fa fa-sign-out pr-1" aria-hidden="true"></i>Sair</a>

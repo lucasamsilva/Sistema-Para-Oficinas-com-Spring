@@ -1,24 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://thmeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro de Usuário</title>
-  
-<!-- IMPORTAÇÃO DO CSS   -->
-<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"></link>
-<link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.css}"></link>
-<link rel="stylesheet" th:href="@{/css/styles/user.css}"></link>
-
-<!-- IMPORTAÇÃO DO JAVASCRIPT -->
-<script type="text/javascript" th:src="@{/js/jquery/jquery.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.js}"></script>
-
+	<link th:href="@{/css/bootstrap/bootstrap-switch.min.css}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastro de Usuário</title>
 </head>
-<body>
-	<header class="cabecalho"></header>
-	<h1>Novo Usuário<br><i class="fa fa-user"></i></h1>
+<section class="d-flex justify-content-center flex-column p-4" layout:fragment="conteudo">
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Novo Usuário</h2>
 	<form class="p-2" th:action="@{save}" method="post" th:object="${user}">
 
 		<div class="form-group">
@@ -30,8 +22,7 @@
 
 		<div class="form-group">
 			<label for="email">Endereço de email</label> <input
-				type="email" name="email" th:field="*{email}" class="form-control"
-				id="email" aria-describedby="emailHelp"
+				type="email" th:field="*{email}" class="form-control"
 				placeholder="Seu email" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
 				 <small id="emailHelp"
 				class="form-text text-muted">Nunca vamos compartilhar seu
@@ -49,12 +40,34 @@
 				type="password" name="passwordconfirm" th:field="*{passwordconfirm}" class="form-control" id="passwordconfirm"
 				placeholder="Digite sua senha novamente" th:classappend="${#fields.hasErrors('passwordconfirm')} ? 'is-invalid'">
 		</div>
+		<div class="d-flex flex-row justify-content-between">
+		<div th:each="grupo : ${roles}">
+			<div class="form-group">
+				<div class="d-flex">
+					<label th:text="${grupo.nome}"></label>
+				</div>
+				<input type="checkbox" class="checkbox" th:value="${grupo.id}" th:field="*{roles}">
+			</div>
+		</div>
+		</div>
 		<div class="form-group d-flex align-self-center justify-content-center">
 			<input type="hidden" th:field="*{id}">
-			<button type="submit" class="btn btn-success" style="width:100px;">Salvar</button>
+			<button type="submit" class="btn btn-success mr-2" style="width:100px;">Salvar</button>
 			<a href="/user/list"><button type="button" class="btn btn-danger" style="width:100px;">Cancelar</button></a>
 		</div>
-
 		</form>	
-</body>
+<script>
+	$(".checkbox").bootstrapSwitch({
+		onColor: "success",
+		offColor: "danger",
+		onText: "Sim",
+		offText: "Não"
+	});
+	$(".admin").addClass("active");
+</script>
+</section>
+
+		<th:block layout:fragment="javascript">
+
+		</th:block>
 </html>

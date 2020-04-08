@@ -10,12 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.projeto.model.Role;
 import com.projeto.model.User;
+import com.projeto.service.RoleService;
 import com.projeto.service.UserService;
 
 @Controller
@@ -23,6 +26,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService ur;
+	
+	@Autowired
+	private RoleService rs;
 	
 	@RequestMapping(value = "/user/list",method = RequestMethod.GET )
 	public ModelAndView findAll() {
@@ -84,5 +90,9 @@ public class UserController {
 		return insert(user);
 	}
 }
-
+	@ModelAttribute("roles")
+	public List<Role> listaRoles(){
+		return rs.findAll();
+	}
+	
 }
