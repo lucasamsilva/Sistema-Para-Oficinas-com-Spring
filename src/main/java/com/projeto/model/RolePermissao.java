@@ -3,43 +3,51 @@ package com.projeto.model;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class RolePermissaoEscopo implements Serializable{
+public class RolePermissao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
+	@EmbeddedId
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	private RolePermissaoId id;
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
 	private Role role;
-	@ManyToOne(cascade = CascadeType.ALL)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
 	private Permissao permissao;
-	@ManyToOne(cascade = CascadeType.ALL)
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
 	private Escopo escopo;
 	
-	public RolePermissaoEscopo(Long id, Role role, Permissao permissao, Escopo escopo) {
-
+	public RolePermissao() {
+	}
+	
+	public RolePermissao(RolePermissaoId id, Role role, Permissao permissao, Escopo escopo) {
 		this.id = id;
 		this.role = role;
 		this.permissao = permissao;
 		this.escopo = escopo;
 	}
 	
-	public RolePermissaoEscopo() {
-	}
-	
-	
-	public Long getId() {
+	public RolePermissaoId getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(RolePermissaoId id) {
 		this.id = id;
 	}
 	public Role getRole() {
@@ -60,7 +68,6 @@ public class RolePermissaoEscopo implements Serializable{
 	public void setEscopo(Escopo escopo) {
 		this.escopo = escopo;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,7 +78,6 @@ public class RolePermissaoEscopo implements Serializable{
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,7 +86,7 @@ public class RolePermissaoEscopo implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RolePermissaoEscopo other = (RolePermissaoEscopo) obj;
+		RolePermissao other = (RolePermissao) obj;
 		if (escopo == null) {
 			if (other.escopo != null)
 				return false;
@@ -103,13 +109,12 @@ public class RolePermissaoEscopo implements Serializable{
 			return false;
 		return true;
 	}
+	
 
 	@Override
 	public String toString() {
-		return "RolePermissaoEscopo [id=" + id + ", role=" + role + ", permissao=" + permissao + ", escopo=" + escopo
-				+ "]";
+		return "RolePermissao [id=" + id + ", role=" + role + ", permissao=" + permissao + ", escopo=" + escopo + "]";
 	}
-	
 	
 	
 
