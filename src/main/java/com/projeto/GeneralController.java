@@ -16,7 +16,12 @@ public class GeneralController {
 	
 	@RequestMapping("/")
 	public String index() {
-		return "/general/index";
+		return "redirect:/home";
+	}
+	
+	@GetMapping("/unauthorized")
+	public String unauthorized() {
+		return "/errors/unauthorized";
 	}
 	
     @GetMapping("/login-error")
@@ -32,21 +37,16 @@ public class GeneralController {
         }
         errorMessage = "Usuário e/ou senha incorretos";
         model.addAttribute("errorMessage", errorMessage);
-        return "index";
+        return "/general/login";
     }
 	
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
 	public String login(){
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/header.html")
-	public String header() {
-		return "/statichtml/header";
+		return "/general/login";
 	}
 	
 	@RequestMapping("/home")
 	public String home() {
-		return "/general/home";
+		return "home";
 	}
 }

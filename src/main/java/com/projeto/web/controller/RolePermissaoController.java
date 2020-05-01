@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,8 +47,6 @@ public class RolePermissaoController {
 	@RequestMapping(value = "/nova",method = RequestMethod.POST)
 	public String save(RolePermissao rolePermissao) {
 		
-		RolePermissao rp = new RolePermissao();
-		
 		RolePermissaoId id = new RolePermissaoId();
 		
 		id.setRoleId(rolePermissao.getRole().getId());
@@ -58,6 +57,23 @@ public class RolePermissaoController {
 		rps.save(rolePermissao);
 		
 		return "redirect:/admin/roles/permissao/list";
+	}
+	
+	@RequestMapping(value = "/{roleId}/{permissaoId}/{escopoId}", method = RequestMethod.DELETE)
+	public ModelAndView delete(@PathVariable Long roleId, @PathVariable Long permissaoId, @PathVariable Long escopoId) {
+		
+		
+		RolePermissaoId id = new RolePermissaoId();
+		
+		id.setEscopoId(escopoId);
+		id.setPermissaoId(permissaoId);
+		id.setRoleId(roleId);
+				
+		rps.deleteById(id);
+		
+		
+		return listarRolePermissoes();
+		
 	}
 	
 	@ModelAttribute("roles")

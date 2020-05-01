@@ -4,12 +4,12 @@ xmlns:th="http://thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout}">
 <head>
-	<title>Permissões</title>
+	<title>Configurações de Acesso</title>
 </head>
 
 <section layout:fragment="conteudo">
 <div class="p-2 p-lg-5 d-flex flex-column justify-content-md-center"> 
-	<button type = button class="btn btn-success col-md-2 col p-2 my-2 mx-md-0"  data-toggle="modal" data-target="#cadastroRoles"><i class="fa fa-users m-1" aria-hidden="true"></i>Nova Role</button>
+	<button type = button class="btn btn-success col-md-2 col p-2 my-2 mx-md-0"  data-toggle="modal" data-target="#cadastroRoles"><i class="fa fa-users m-1" aria-hidden="true"></i>Nova Configuração de Acesso</button>
 	<table id="myTable" class="table table-striped table-bordered">
 		<thead class="bg-success">
 			<tr>
@@ -24,7 +24,10 @@ layout:decorate="~{layout}">
 				<td data-title="Grupo" th:text="${rolePermissao.role.nome}"></td>
 				<td data-title="Permissao" th:text="${rolePermissao.permissao.nome}"></td>
 				<td data-title="E-mail" th:text="${rolePermissao.escopo.nome}"></td>
-				<td data-title=""></td>
+				<td class="d-flex justify-content-center">
+					<button type="button" data-toggle="modal" data-target="#confirmacao" th:roleId="${rolePermissao.role.id}" th:permissaoId="${rolePermissao.permissao.id}" th:escopoId="${rolePermissao.escopo.id}"
+					class="btn btn-danger btn-sm excluir">Excluir</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -61,6 +64,20 @@ layout:decorate="~{layout}">
 	</div>
 </div>
 
+	<div class="modal fade" id="confirmacao" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h3 class="modal-title">Confirma a exclusão ?</h3>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-danger" id="botaoconfirmacao">Excluir</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 
 <script>
 	$(".admin").addClass("active");
@@ -72,6 +89,31 @@ layout:decorate="~{layout}">
 		$('label').addClass("d-flex").addClass("align-items-baseline");
 
 	});
+	
+	$(".excluir").click(function(){
+		let escopoId = $(this).attr("escopoId");
+		let roleId = $(this).attr("roleId");
+		let permissaoId = $(this).attr("permissaoId");
+		console.log(permissaoId, escopoId, roleId)
+		$("#botaoconfirmacao").attr("escopoId", escopoId);
+		$("#botaoconfirmacao").attr("roleId", roleId);
+		$("#botaoconfirmacao").attr("permissaoId", permissaoId);
+	}
+	);
+	
+	$("#botaoconfirmacao").click(function(){
+		let escopoId = $(this).attr("escopoId");
+		let roleId = $(this).attr("roleId");
+		let permissaoId = $(this).attr("permissaoId");
+		$.ajax({
+			url:`/admin/roles/permissao/${roleId}/${permissaoId}/${escopoId}`,
+			type:'delete',
+			success: function(){
+				location.reload();
+				}
+			})	
+		}
+	);
 </script>
 
 </section>
