@@ -16,6 +16,7 @@ public class RolePermissaoId implements Serializable{
 	private Long permissaoId;
 	@Column(insertable = false, updatable = false, nullable = false)
 	private Long escopoId;
+	
 	public Long getRoleId() {
 		return roleId;
 	}

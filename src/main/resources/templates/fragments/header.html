@@ -39,7 +39,7 @@
         <a class="nav-link" href="/">Mecanicos</a>
       </li>
       <li class="nav-item dropdown">
-        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administração
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

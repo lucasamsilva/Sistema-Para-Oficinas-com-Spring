@@ -67,9 +67,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/save",method = RequestMethod.POST )
 	public ModelAndView Save(@Valid User user,BindingResult result){
-		System.out.println("cheguei aqui");
 		if(result.hasErrors()) {
-			System.out.println("Erro");
 			return insert(user);
 		}
 		
