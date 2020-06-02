@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" th:src="@{/js/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}"></link>
+<link rel="stylesheet"
+	th:href="@{/css/font-awesome/css/font-awesome.css}"></link>
+<meta charset="UTF-8">
+<title>Não Autorizado</title>
+<style>
+body, html{
+	height: 100%;
+	background-color: MintCream;
+}
+
+div {
+	height: 80%;
+}
+</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+		<a class="navbar-brand" href="/home"> <i class="fa fa-wrench"
+			aria-hidden="true"></i> Oficinet
+		</a>
+	</nav>
+		<div
+			class="d-flex flex-column justify-content-center align-items-center">
+			<i class="fa fa-exclamation-triangle fa-4x p-3"
+				aria-hidden="true"></i>
+			<h1 class="pb-2">Você não possui permissão de acesso</h1>
+			<h3>Redirecionando em 5 segundos</h3>
+		</div>
+</body>
+
+<script>
+	setTimeout(function(){
+		window.location.href = "/home";
+	}, 5000);
+</script>

@@ -1,11 +1,13 @@
 package com.projeto.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -46,7 +49,7 @@ public class User implements Serializable, UserDetails{
 	@NotBlank
 	@Email
 	private String email;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "TAB_USUARIO_ROLE", joinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName = "id")},
 	inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
 	private List<Role> roles;
@@ -85,35 +88,53 @@ public class User implements Serializable, UserDetails{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
+	@Transient
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<GrantedAuthority> autoridades = new ArrayList<GrantedAuthority>();
+		for (Role role :this.getRoles()) {
+			autoridades.add(new SimpleGrantedAuthority("ROLE_"+role.getNome().toUpperCase()));
+		}
+		
+		return autoridades;
 	}
+	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return this.password;
 	}
+	
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return this.email;
 	}
+	
+	@Transient
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	@Transient
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	@Transient
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub

@@ -2,7 +2,6 @@ package com.projeto.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,16 +21,16 @@ public class RolePermissao implements Serializable{
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(updatable = false)
+	@JoinColumn(name="roleId", insertable = false, updatable = false, nullable = false)
 	private Role role;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(updatable = false)
+	@JoinColumn(name="permissaoId", insertable = false, updatable = false, nullable = false)
 	private Permissao permissao;
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(updatable = false)
+	@JoinColumn(name="escopoId", insertable = false, updatable = false, nullable = false)
 	private Escopo escopo;
 	
 	public RolePermissao() {
