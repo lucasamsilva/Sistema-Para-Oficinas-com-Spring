@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -16,7 +14,6 @@ public class RolePermissao implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private RolePermissaoId id;
 	
 

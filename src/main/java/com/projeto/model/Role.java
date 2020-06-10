@@ -26,10 +26,23 @@ public class Role implements Serializable {
 	@NotNull
 	@NotBlank
 	private String nome;
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	private List<User> users;
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
     private List<RolePermissao> rolePermissao = new ArrayList<RolePermissao>();
+
+	
+	public Role() {
+		super();
+	}
+
+	public Role(Long id, String nome, List<User> usuarios, List<RolePermissao> rolePermissao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.users = usuarios;
+		this.rolePermissao = rolePermissao;
+	}
 
 	
 	public List<User> getUsers() {
@@ -41,6 +54,7 @@ public class Role implements Serializable {
 	}
 	
 	public List<RolePermissao> getRolePermissao() {
+		System.out.println("ROLE PERMISSAO = " + rolePermissao);
 		return rolePermissao;
 	}
 	
@@ -58,14 +72,6 @@ public class Role implements Serializable {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public Role() {
-	}
-	
-	public Role(Long id, @NotNull @NotBlank String nome) {
-		this.id = id;
 		this.nome = nome;
 	}
 	

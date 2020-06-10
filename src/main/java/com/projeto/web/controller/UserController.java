@@ -85,7 +85,7 @@ public class UserController {
 		}
 		else {
 		ur.save(user);
-		return insert(user);
+		return findAll();
 	}
 }
 	@ModelAttribute("roles")

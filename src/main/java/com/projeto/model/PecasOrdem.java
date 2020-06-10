@@ -1,10 +1,11 @@
 package com.projeto.model;
 
-import java.io.Serializable;import javax.persistence.CascadeType;
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -12,18 +13,18 @@ public class PecasOrdem implements Serializable{
 
 	private static final long serialVersionUID = -2713156093390299733L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@EmbeddedId
+	private PecasOrdemId id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="PecaId", insertable = false, updatable = false, nullable = false)
 	private Pecas peca;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="OrdemId", insertable = false, updatable = false, nullable = false)
 	private OrdemServico ordemservico;
 	private Integer quantidade;
 	
 	
-	public PecasOrdem(Long id, Pecas peca, OrdemServico ordemservico, Integer quantidade) {
-		this.id = id;
+	public PecasOrdem(Pecas peca, OrdemServico ordemservico, Integer quantidade) {
 		this.peca = peca;
 		this.ordemservico = ordemservico;
 		this.quantidade = quantidade;
@@ -33,12 +34,6 @@ public class PecasOrdem implements Serializable{
 
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public Pecas getPeca() {
 		return peca;
 	}

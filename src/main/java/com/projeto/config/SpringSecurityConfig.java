@@ -30,8 +30,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").permitAll()
 				.antMatchers(HttpMethod.GET, "/user/new").permitAll().antMatchers(HttpMethod.POST, "/user/save")
-				.permitAll().antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers( "/user/**").hasRole("ADMIN").anyRequest().authenticated();
+				.permitAll()
+//				.antMatchers("/admin/**").hasRole("ADMIN")
+//				.antMatchers( "/user/**").hasRole("ADMIN")
+				.anyRequest().authenticated();
 
 		http.exceptionHandling().accessDeniedPage("/unauthorized");
 

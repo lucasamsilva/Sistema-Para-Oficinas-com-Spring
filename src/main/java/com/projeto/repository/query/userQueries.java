@@ -1,9 +1,11 @@
 package com.projeto.repository.query;
 
-import com.projeto.model.User;
+import java.util.List;
+
+import com.projeto.model.Permission;
 
 public interface userQueries {
 
-	User findRolePermissaoByUsuarioId(Long id);
+	List<Permission> findRolePermissaoByUsuarioId(Long id);
 	
 }

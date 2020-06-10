@@ -72,7 +72,7 @@ public class SpringJPAConfig {
 	
 	  public Properties additionalProperties() {
 	      Properties additionalProperties = new Properties();
-	        additionalProperties.put( "hibernate.dialect", env.getProperty("spring.jpa.database-platform")); // ou outro dialeto mais específico para sua infra
+	        additionalProperties.put("hibernate.dialect", env.getProperty("spring.jpa.database-platform")); // ou outro dialeto mais específico para sua infra
 	        additionalProperties.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
 	        additionalProperties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
 	        return additionalProperties;

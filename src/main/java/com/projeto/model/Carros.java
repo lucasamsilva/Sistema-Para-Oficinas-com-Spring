@@ -2,10 +2,14 @@ package com.projeto.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.internal.NotNull;
 
 @Entity
 public class Carros implements Serializable{
@@ -15,8 +19,15 @@ public class Carros implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
+	@NotBlank(message = "Preencha o campo montadora")
 	private String montadora;
+	@NotNull
+	@NotBlank(message = "Preencha o campo modelo")
 	private String modelo;
+	@NotNull
+	@NotBlank(message = "Preencha o campo placa")
+	@Column(unique = true)
 	private String placa;
 	
 	public Carros(Long id, String montadora, String modelo, String placa) {

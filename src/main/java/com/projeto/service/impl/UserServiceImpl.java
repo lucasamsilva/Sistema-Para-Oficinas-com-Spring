@@ -3,6 +3,7 @@ package com.projeto.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional(readOnly = true)
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('PERMISSAO','LEITURA')")
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
 		return ur.findAll();

@@ -2,13 +2,16 @@ package com.projeto.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class OrdemServico implements Serializable{
@@ -22,8 +25,10 @@ public class OrdemServico implements Serializable{
 	private Mecanico mecanico;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Clientes cliente;
-	@ManyToOne(cascade = CascadeType.ALL)	
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Carros carro;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ordemservico")
+	private List<PecasOrdem> pecas;
 	private String servico;
 	private Date entrada;
 	private Date saida;

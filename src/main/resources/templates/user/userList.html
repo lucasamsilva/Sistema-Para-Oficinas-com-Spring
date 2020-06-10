@@ -63,9 +63,10 @@ layout:decorate="~{layout}">
 	$("#botaoconfirmacao").click(function(){
 		let id = $("#botaoconfirmacao").attr("name");
 		$.ajax({
-			url:`/user/delete/${id}`,
+			url:`/carros/delete/${id}`,
 			type:'delete',
 			success: function(){
+				console.log("OK")
 				location.reload();
 			}
 		})	
