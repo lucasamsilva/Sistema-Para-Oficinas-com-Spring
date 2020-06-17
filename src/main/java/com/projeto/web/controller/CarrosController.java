@@ -31,7 +31,6 @@ public class CarrosController {
 		try {
 			cs.save(carros);			
 		} catch (Exception e) {
-			System.out.println(e.getClass());
 			if(e.getClass() == PersistenceException.class || e.getClass() == DataIntegrityViolationException.class) {
 				return new ModelAndView("redirect:/carros/lista?erro");
 			}

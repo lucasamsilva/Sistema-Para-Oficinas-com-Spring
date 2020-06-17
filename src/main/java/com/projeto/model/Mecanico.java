@@ -1,12 +1,22 @@
 package com.projeto.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 //CRIAR HASHCODE SE NECESSÁRIO
@@ -18,10 +28,21 @@ public class Mecanico implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String nome;
+	@CPF
+	@Column(unique = true)
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String cpf;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@Temporal(TemporalType.DATE)
 	private Date admissao;
 	private boolean admitido;
+	@NotNull
 	private Long salariobase;
 	
 	public Mecanico(Long id, String nome, String cpf, Date admissao, boolean admitido, Long salariobase) {

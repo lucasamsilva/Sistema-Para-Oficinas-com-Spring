@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title>Mecânicos</title>
+</head>
+
+<section layout:fragment="conteudo" >
+	<div class="p-2 p-lg-5 d-flex flex-column justify-content-md-center">
+		<a href="/mecanicos"
+			class="btn btn-warning col-md-2 col p-2 my-2">
+			<i class="fa fa-file-text m-1" aria-hidden="true"></i>Mecânicos Ativos
+		</a>
+		<table id="myTable" class="table table-striped table-bordered">
+			<thead class="bg-success">
+				<tr>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Admissão</th>
+					<th>Salario</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="mecanico :${mecanicos}">
+					<td th:text="${mecanico.nome}"></td>
+					<td th:text="${mecanico.cpf}"></td>
+					<td th:text="${mecanico.admissao}"></td>
+					<td th:text="${mecanico.salariobase}"></td>
+					<td style="width: 100px;">
+						<a class="btn btn-danger btn-sm ml-3" th:href="@{/mecanicos/readmitir/{id}(id=${mecanico.id})}">Readmitir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+</html>

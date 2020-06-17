@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title>Mecânicos</title>
+</head>
+
+<section layout:fragment="conteudo" >
+	<div class="p-2 p-lg-5 d-flex flex-column justify-content-md-center">
+		<div class="d-flex flex-row">
+			<a href="mecanicos/novo"
+				class="btn btn-success ml-3 col-md-2 col p-2 my-2 mx-md-0 mr-1">
+				<i class="fa fa-users m-1" aria-hidden="true"></i>Novo Mecânico
+			</a>
+			<a href="mecanicos/demitidos"
+				class="btn btn-warning col-md-2 col p-2 my-2 m-2">
+				<i class="fa fa-file-text m-1" aria-hidden="true"></i>Mecânicos Demitidos
+			</a>
+		</div>
+		<table id="myTable" class="table table-striped table-bordered">
+			<thead class="bg-success">
+				<tr>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Admissão</th>
+					<th>Salario</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="mecanico :${mecanicos}">
+					<td th:text="${mecanico.nome}"></td>
+					<td th:text="${mecanico.cpf}"></td>
+					<td th:text="${mecanico.admissao}"></td>
+					<td th:text="${mecanico.salariobase}"></td>
+					<td style="width: 150px;">
+						<a class="ml-2 btn btn-warning btn-sm" th:href="@{/mecanicos/alterar/{id}(id=${mecanico.id})}">Alterar</a>
+						<a class="btn btn-danger btn-sm" th:href="@{/mecanicos/deletar/{id}(id=${mecanico.id})}">Demitir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+</html>

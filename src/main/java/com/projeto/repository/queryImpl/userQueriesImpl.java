@@ -25,7 +25,7 @@ public class userQueriesImpl implements userQueries{
 //		+ " LEFT JOIN FETCH u.roles r" 
 //		+ " LEFT JOIN r.rolePermissao rp"
 //		+ " LEFT JOIN rp.permissao"
-//		+ " LEFT JOIN rp.escopo"
+//		+ " LEFT JOIN rp.escopo"deleteQuery
 //		+ " WHERE u.id = :id", User.class).setParameter("id", id);
 		
 		List<Permission> lista = new ArrayList<>();

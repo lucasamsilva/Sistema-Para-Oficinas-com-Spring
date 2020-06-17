@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
+<head>
+	<link th:href="@{/css/bootstrap/bootstrap-switch.min.css}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Demissão de Mecânico</title>
+</head>
+<section class="d-flex justify-content-center flex-column p-4" layout:fragment="conteudo">
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Novo Mecânico</h2>
+	<form class="p-2" th:action="@{/mecanicos/deletar}" method="post" th:object="${mecanico}">
+		<div class="text-danger" th:text="${erro}"></div>
+		<input type="text" th:field="*{id}" hidden>
+		<div class="form-group">
+			<label for="nome">Nome</label>
+    		<input type="text" class="form-control" id="nome" placeholder="Nome do mecânico" th:field="*{nome}"
+    		readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label for="nome">CPF</label>
+    		<input type="text" class="form-control" id="nome" placeholder="CPF do mecânico" th:field="*{cpf}"
+    		readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label for="nome">Salário</label>
+    		<input type="number" class="form-control" id="nome" placeholder="Salário do mecânico" th:field="*{salariobase}"
+    		readonly="readonly">
+		</div>
+		<div class="form-group d-flex align-self-center justify-content-center">
+			<button type="submit" class="btn btn-success mr-2" style="width:100px;">Demitir</button>
+			<a href="/mecanicos"><button type="button" class="btn btn-danger" style="width:100px;">Cancelar</button></a>
+		</div>
+	</form>	
+</section>
+</html>

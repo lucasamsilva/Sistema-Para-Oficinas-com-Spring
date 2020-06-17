@@ -74,7 +74,6 @@ public class UserController {
 		
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		ur.save(user);
-		System.out.println(user.getPassword());
 		return new ModelAndView("redirect:/user/list");
 	}
 	
