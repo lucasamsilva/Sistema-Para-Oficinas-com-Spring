@@ -38,7 +38,7 @@ public class Mecanico implements Serializable{
 	@NotBlank
 	@NotEmpty
 	private String cpf;
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date admissao;
 	private boolean admitido;

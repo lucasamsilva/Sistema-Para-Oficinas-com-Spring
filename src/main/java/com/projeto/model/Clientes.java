@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 
 @Entity
@@ -16,10 +21,25 @@ public class Clientes implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String nome;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String endereco;
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String telefone;
+	@CPF
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	private String cpf;
+	@NotNull
+	@NotBlank
 	private String rg;
 	
 	public Clientes(Long id, String nome, String endereco, String telefone, String cpf, String rg) {

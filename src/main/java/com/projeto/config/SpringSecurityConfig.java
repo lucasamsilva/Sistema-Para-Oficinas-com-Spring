@@ -26,39 +26,39 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthSuccessHandler authSuccessHandler;
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").permitAll()
-//				.antMatchers(HttpMethod.GET, "/user/new").permitAll().antMatchers(HttpMethod.POST, "/user/save")
-//				.permitAll()
-////				.antMatchers("/admin/**").hasRole("ADMIN")
-////				.antMatchers( "/user/**").hasRole("ADMIN")
-//				.anyRequest().authenticated();
-//
-//		http.exceptionHandling().accessDeniedPage("/unauthorized");
-//
-//		http.formLogin()
-//			.loginPage("/login")
-//			.successHandler(authSuccessHandler)
-//			.failureUrl("/login-error")
-//			.permitAll();
-//
-//		http.logout()
-//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.deleteCookies("JSESSIONID")
-//			.invalidateHttpSession(true)
-//			.clearAuthentication(true)
-//			.logoutSuccessUrl("/login")
-//			.permitAll();
-//		
-//		http.sessionManagement()
-//			.invalidSessionUrl("/login")
-//			.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//			.maximumSessions(1)
-//			.sessionRegistry(new SessionRegistryImpl())
-//			.and()
-//			.sessionFixation().none();
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").permitAll()
+				.antMatchers(HttpMethod.GET, "/user/new").permitAll().antMatchers(HttpMethod.POST, "/user/save")
+				.permitAll()
+//				.antMatchers("/admin/**").hasRole("ADMIN")
+//				.antMatchers( "/user/**").hasRole("ADMIN")
+				.anyRequest().permitAll();
+
+		http.exceptionHandling().accessDeniedPage("/unauthorized");
+
+		http.formLogin()
+			.loginPage("/login")
+			.successHandler(authSuccessHandler)
+			.failureUrl("/login-error")
+			.permitAll();
+
+		http.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.deleteCookies("JSESSIONID")
+			.invalidateHttpSession(true)
+			.clearAuthentication(true)
+			.logoutSuccessUrl("/login")
+			.permitAll();
+		
+		http.sessionManagement()
+			.invalidSessionUrl("/login")
+			.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+			.maximumSessions(1)
+			.sessionRegistry(new SessionRegistryImpl())
+			.and()
+			.sessionFixation().none();
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

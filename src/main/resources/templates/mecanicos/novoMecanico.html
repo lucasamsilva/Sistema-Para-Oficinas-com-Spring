@@ -15,17 +15,17 @@ layout:decorate="~{layout}">
 		<div class="text-danger" th:text="${erro}"></div>
 		<div class="form-group">
 			<label for="nome">Nome</label>
-    		<input type="text" class="form-control" id="nome" placeholder="Nome do mecânico" th:field="*{nome}"
+    		<input type="text" class="form-control" placeholder="Nome do mecânico" th:field="*{nome}"
     		th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" >
 		</div>
 		<div class="form-group">
 			<label for="nome">CPF</label>
-    		<input type="text" class="form-control" id="nome" placeholder="CPF do mecânico" th:field="*{cpf}"
+    		<input type="text" class="form-control" placeholder="CPF do mecânico" th:field="*{cpf}"
     		th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'">
 		</div>
 		<div class="form-group">
 			<label for="nome">Salário</label>
-    		<input type="number" class="form-control" id="nome" placeholder="Salário do mecânico" th:field="*{salariobase}"
+    		<input type="number" class="form-control" placeholder="Salário do mecânico" th:field="*{salariobase}"
     		th:classappend="${#fields.hasErrors('salariobase')} ? 'is-invalid'">
 		</div>
 		<div class="form-group d-flex align-self-center justify-content-center">

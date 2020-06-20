@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
+<head>
+	<link th:href="@{/css/bootstrap/bootstrap-switch.min.css}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Novo Cliente</title>
+</head>
+<section class="d-flex justify-content-center flex-column p-4" layout:fragment="conteudo">
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Novo Cliente</h2>
+	<form class="p-2" th:action="@{novo}" method="post" th:object="${clientes}">
+		<div class="text-danger" th:text="${erro}"></div>
+		<div class="form-group">
+			<label for="nome">Nome</label>
+    		<input type="text" class="form-control" id="nome" placeholder="Nome do Cliente" th:field="*{nome}"
+    		th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" >
+		</div>
+		<div class="form-group">
+			<label for="nome">Endereço</label>
+    		<input type="text" class="form-control" id="nome" placeholder="Endereço do Cliente" th:field="*{endereco}"
+    		th:classappend="${#fields.hasErrors('endereco')} ? 'is-invalid'">
+		</div>
+		<div class="form-group">
+			<label for="nome">Telefone</label>
+    		<input type="text" class="form-control" id="nome" placeholder="Telefone do Cliente" th:field="*{telefone}"
+    		th:classappend="${#fields.hasErrors('telefone')} ? 'is-invalid'">
+		</div>
+		<div class="form-group">
+			<label for="nome">CPF</label>
+    		<input type="text" class="form-control" id="nome" placeholder="CPF do Cliente" th:field="*{cpf}"
+    		th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'">
+		</div>
+		<div class="form-group">
+			<label for="nome">RG</label>
+    		<input type="text" class="form-control" id="nome" placeholder="RG do Cliente" th:field="*{rg}"
+    		th:classappend="${#fields.hasErrors('rg')} ? 'is-invalid'">
+		</div>
+		<div class="form-group d-flex align-self-center justify-content-center">
+			<button type="submit" class="btn btn-success mr-2" style="width:100px;">Salvar</button>
+			<a href="/clientes"><button type="button" class="btn btn-danger" style="width:100px;">Cancelar</button></a>
+		</div>
+	</form>	
+</section>
+</html>
