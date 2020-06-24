@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -40,8 +41,8 @@ public class RolePermissaoServiceImpl implements RolePermissaoService {
 	}
 
 	@Override
-	public RolePermissao findById(RolePermissaoId id) {
-		return rpr.getOne(id);
+	public Optional<RolePermissao> findById(RolePermissaoId id) {
+		return rpr.findById(id);
 	}
 
 	@Override

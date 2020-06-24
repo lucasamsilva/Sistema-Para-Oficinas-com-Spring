@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -43,9 +44,9 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role findById(Long id) {
+	public Optional<Role> findById(Long id) {
 		// TODO Auto-generated method stub
-		return rr.findById(id).orElseThrow(()-> new RuntimeException("Usuário não cadastrado!"));
+		return rr.findById(id);
 	}
 
 	@Override

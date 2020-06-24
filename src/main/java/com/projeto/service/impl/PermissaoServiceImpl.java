@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,32 +18,32 @@ public class PermissaoServiceImpl implements PermissaoService{
 	
 	@Override
 	public List<Permissao> findAll() {
-		// TODO Auto-generated method stub
+
 		return pr.findAll();
 	}
 
 	@Override
 	public Permissao save(Permissao entity) {
-		// TODO Auto-generated method stub
+
 		return pr.save(entity);
 	}
 
 	@Override
 	public Permissao update(Permissao entity) {
-		// TODO Auto-generated method stub
+
 		return pr.save(entity);
 	}
 
 	@Override
 	public Permissao getOne(Long id) {
-		// TODO Auto-generated method stub
+
 		return pr.getOne(id);
 	}
 
 	@Override
-	public Permissao findById(Long id) {
+	public Optional<Permissao> findById(Long id) {
 		// TODO Auto-generated method stub
-		return pr.getOne(id);
+		return pr.findById(id);
 	}
 
 	@Override

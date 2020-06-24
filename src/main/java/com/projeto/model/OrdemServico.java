@@ -27,40 +27,17 @@ public class OrdemServico implements Serializable{
 	private Clientes cliente;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Carros carro;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ordemservico")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ordemServico")
 	private List<PecasOrdem> pecas;
 	private String servico;
 	private Date entrada;
 	private Date saida;
 	private boolean concluido;
-	private Long maodeobra;
-	private Long custopecas;
-	private Long custototal;
+	private Double maodeobra;
+	private Double custopecas;
+	private Double custototal;
 	private String diretorio;
 	private String observacao;
-	
-	public OrdemServico(Long id, Mecanico mecanico, Clientes cliente, Carros carro, String servico, Date entrada,
-			Date saida, boolean concluido, Long maodeobra, Long custopecas, Long custototal, String diretorio,
-			String observacao) {
-		this.id = id;
-		this.mecanico = mecanico;
-		this.cliente = cliente;
-		this.carro = carro;
-		this.servico = servico;
-		this.entrada = entrada;
-		this.saida = saida;
-		this.concluido = concluido;
-		this.maodeobra = maodeobra;
-		this.custopecas = custopecas;
-		this.custototal = custototal;
-		this.diretorio = diretorio;
-		this.observacao = observacao;
-	}
-	
-	public OrdemServico() {
-
-	}
-	
 	public Long getId() {
 		return id;
 	}
@@ -84,6 +61,12 @@ public class OrdemServico implements Serializable{
 	}
 	public void setCarro(Carros carro) {
 		this.carro = carro;
+	}
+	public List<PecasOrdem> getPecas() {
+		return pecas;
+	}
+	public void setPecas(List<PecasOrdem> pecas) {
+		this.pecas = pecas;
 	}
 	public String getServico() {
 		return servico;
@@ -109,22 +92,22 @@ public class OrdemServico implements Serializable{
 	public void setConcluido(boolean concluido) {
 		this.concluido = concluido;
 	}
-	public Long getMaodeobra() {
+	public Double getMaodeobra() {
 		return maodeobra;
 	}
-	public void setMaodeobra(Long maodeobra) {
+	public void setMaodeobra(Double maodeobra) {
 		this.maodeobra = maodeobra;
 	}
-	public Long getCustopecas() {
+	public Double getCustopecas() {
 		return custopecas;
 	}
-	public void setCustopecas(Long custopecas) {
+	public void setCustopecas(Double custopecas) {
 		this.custopecas = custopecas;
 	}
-	public Long getCustototal() {
+	public Double getCustototal() {
 		return custototal;
 	}
-	public void setCustototal(Long custototal) {
+	public void setCustototal(Double custototal) {
 		this.custototal = custototal;
 	}
 	public String getDiretorio() {
@@ -139,13 +122,64 @@ public class OrdemServico implements Serializable{
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
+	
+	public OrdemServico(Long id, Mecanico mecanico, Clientes cliente, Carros carro, List<PecasOrdem> pecas,
+			String servico, Date entrada, Date saida, boolean concluido, Double maodeobra, Double custopecas,
+			Double custototal, String diretorio, String observacao) {
+		super();
+		this.id = id;
+		this.mecanico = mecanico;
+		this.cliente = cliente;
+		this.carro = carro;
+		this.pecas = pecas;
+		this.servico = servico;
+		this.entrada = entrada;
+		this.saida = saida;
+		this.concluido = concluido;
+		this.maodeobra = maodeobra;
+		this.custopecas = custopecas;
+		this.custototal = custototal;
+		this.diretorio = diretorio;
+		this.observacao = observacao;
+	}
+	
+	public OrdemServico() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
 		return "OrdemServico [id=" + id + ", mecanico=" + mecanico + ", cliente=" + cliente + ", carro=" + carro
-				+ ", servico=" + servico + ", entrada=" + entrada + ", saida=" + saida + ", concluido=" + concluido
-				+ ", maodeobra=" + maodeobra + ", custopecas=" + custopecas + ", custototal=" + custototal
-				+ ", diretorio=" + diretorio + ", observacao=" + observacao + "]";
+				+ ", pecas=" + pecas + ", servico=" + servico + ", entrada=" + entrada + ", saida=" + saida
+				+ ", concluido=" + concluido + ", maodeobra=" + maodeobra + ", custopecas=" + custopecas
+				+ ", custototal=" + custototal + ", diretorio=" + diretorio + ", observacao=" + observacao + "]";
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrdemServico other = (OrdemServico) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

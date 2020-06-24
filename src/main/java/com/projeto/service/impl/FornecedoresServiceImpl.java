@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,9 +41,9 @@ public class FornecedoresServiceImpl implements FornecedoresService{
 	}
 
 	@Override
-	public Fornecedores findById(Long id) {
+	public Optional<Fornecedores> findById(Long id) {
 
-		return fr.getOne(id);
+		return fr.findById(id);
 	}
 
 	@Override

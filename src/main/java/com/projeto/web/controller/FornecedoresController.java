@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,24 @@ public class FornecedoresController {
 		
 		fs.save(fornecedor);
 		return new ModelAndView("redirect:/fornecedores");
+	}
+	
+	@GetMapping(value = "/alterar/{id}")
+	public ModelAndView alterar(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("/fornecedores/alterarFornecedor");
+		Fornecedores fornecedor = fs.getOne(id);
+		mv.addObject("fornecedores", fornecedor);
+		
+		return mv;
+		
+	}
+	
+	@PostMapping(value="/alterar") 
+	public ModelAndView alterarFornecedor(Fornecedores fornecedor){
+		
+		fs.save(fornecedor);
+		return new ModelAndView("redirect:/fornecedores");
+		
 	}
 	
 }

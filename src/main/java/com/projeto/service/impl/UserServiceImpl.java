@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,8 +55,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findById(Long id) {
-		return ur.findById(id).orElseThrow(() -> new RuntimeException("Usuário não cadastrado"));
+	public Optional<User> findById(Long id) {
+		return ur.findById(id);
 	}
 	
 	@Override

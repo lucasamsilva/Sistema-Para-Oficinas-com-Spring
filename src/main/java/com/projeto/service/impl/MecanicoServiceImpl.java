@@ -1,6 +1,7 @@
 package com.projeto.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,9 +41,9 @@ public class MecanicoServiceImpl implements MecanicoService{
 	}
 
 	@Override
-	public Mecanico findById(Long id) {
+	public Optional<Mecanico> findById(Long id) {
 		
-		return mr.findById(id).orElseThrow(() -> new RuntimeException("Usuário não cadastrado"));
+		return mr.findById(id);
 	}
 
 	@Override
