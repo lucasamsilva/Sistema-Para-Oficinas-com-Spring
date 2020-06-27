@@ -1,17 +1,26 @@
 package com.projeto.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class OrdemServico implements Serializable{
@@ -21,18 +30,31 @@ public class OrdemServico implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Mecanico mecanico;
+	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Clientes cliente;
+	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Carros carro;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ordemServico")
-	private List<PecasOrdem> pecas;
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="ordem_id")
+	private List<PecasOrdem> pecas = new ArrayList<>();
+	@NotNull
+	@NotEmpty
+	@NotBlank
 	private String servico;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date entrada;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date saida;
 	private boolean concluido;
+	@NotNull
 	private Double maodeobra;
 	private Double custopecas;
 	private Double custototal;

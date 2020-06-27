@@ -65,4 +65,10 @@ public class OrdemServicoServiceImpl implements OrdemServicoService{
 		
 	}
 
+	@Override
+	public List<OrdemServico> listaAtivas() {
+		
+		return ors.ordensAbertas();
+	}
+
 }

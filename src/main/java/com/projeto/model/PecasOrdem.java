@@ -3,7 +3,10 @@ package com.projeto.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -12,25 +15,15 @@ public class PecasOrdem implements Serializable{
 	private static final long serialVersionUID = -2713156093390299733L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne
-	private OrdemServico ordemServico;
 	private String descricao;
 	private Integer quantidade;
 	private Double valor;
+	@ManyToOne
+	@JoinColumn(name = "fornecedor_id")
+	private Fornecedores fornecedores;
 	
-	public PecasOrdem(Long id, OrdemServico ordemId, String descricao, Integer quantidade, Double valor) {
-
-		this.id = id;
-		this.ordemServico = ordemId;
-		this.descricao = descricao;
-		this.quantidade = quantidade;
-		this.valor = valor;
-	}
-	
-	public PecasOrdem() {
-		super();
-	}
 	
 	@Override
 	public int hashCode() {
@@ -39,6 +32,20 @@ public class PecasOrdem implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+	
+	public PecasOrdem(Long id, String descricao, Integer quantidade, Double valor, Fornecedores fornecedores) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.quantidade = quantidade;
+		this.valor = valor;
+		this.fornecedores = fornecedores;
+	}
+	
+	public PecasOrdem() {
+		super();
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -62,12 +69,6 @@ public class PecasOrdem implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public OrdemServico getordemServico() {
-		return ordemServico;
-	}
-	public void setordemServico(OrdemServico ordemId) {
-		this.ordemServico = ordemId;
-	}
 	public String getDescricao() {
 		return descricao;
 	}
@@ -86,6 +87,14 @@ public class PecasOrdem implements Serializable{
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
+	public Fornecedores getFornecedores() {
+		return fornecedores;
+	}
+	public void setFornecedores(Fornecedores fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+	
+
 	
 	
 	

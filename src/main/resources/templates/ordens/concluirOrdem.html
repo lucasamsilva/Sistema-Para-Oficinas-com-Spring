@@ -14,51 +14,50 @@
 	rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Ordem de Serviço</title>
+<title>Concluir Ordem de Serviço</title>
 </head>
 <section class="d-flex justify-content-center flex-column p-4"
 	layout:fragment="conteudo">
-	<h2 class="d-flex justify-content-center flex-column align-self-center">Nova
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Concluir
 		Ordem de Serviço</h2>
-	<form class="p-2" th:action="@{nova}" method="post"
+	<form class="p-2" th:action="@{/ordens/concluir}" method="post"
 		th:object="${ordemServico}">
+		<input type="hidden" th:field="*{id}" >
+		<input type="hidden" th:field="*{entrada}">
 		<div class="form-group row">
 			<label for="descricao">Descrição</label>
 			<textarea rows="3" cols="10" id="descricao" class="form-control"
 				placeholder="Descreva aqui o serviço a ser realizado"
-				th:field="*{servico}" th:classappend="${#fields.hasErrors('servico')} ? 'is-invalid'"/></textarea>
+				th:field="*{servico}" readonly="readonly"/></textarea>
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-6 pl-0 pr-0 pr-md-3 form-group">
 				<label for="mecanico">Mecanico</label> <select id="mecanico"
-					class="form-control select" th:field="*{mecanico}">
-					<option value="-1" )>Selecione um mecânico</option>
-					<option th:each="mecanico : ${mecanicos}" th:value="${mecanico.id}"
-						th:text="${mecanico.nome}"></option>
+					class="form-control" th:field="*{mecanico}" readonly>
+					<option th:value="*{mecanico.id}" th:text="*{mecanico.nome}">
 				</select>
 			</div>
 			<div class="col-12 col-md-6 pl-0 pr-0 form-group">
 				<label for="cliente">Cliente</label> <select id="cliente"
-					class="form-control select" th:field="*{cliente}">
-					<option value="-1" )>Selecione um Cliente</option>
-					<option th:each="cliente : ${clientes}" th:value="${cliente.id}"
-						th:text="${cliente.nome}"></option>
+					class="form-control" th:field="*{cliente}" readonly>
+					<option th:value="*{cliente.id}"
+						th:text="*{cliente.nome}"></option>
 				</select>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-6 pl-0 pr-0 pr-md-3 form-group">
 				<label for="carro">Carro</label> <select id="carro"
-					class="form-control select" th:field="*{carro}">
-					<option value="-1">Selecione um Carro pela Placa</option>
-					<option th:each="carro : ${carros}" th:value="${carro.id}"
-						th:text="${carro.placa}"></option>
+					class="form-control" th:field="*{carro}" readonly>
+					<option th:value="*{carro.id}"
+						th:text="*{carro.placa}"></option>
 				</select>
 			</div>
 			<div class="col-12 col-md-6 pl-0 pr-0 form-group">
-				<label for="maodeobra">Mão de obra</label> <input id="maodeobra" value="0"
-					type="text" class="form-control" th:classappend="${#fields.hasErrors('maodeobra')} ? 'is-invalid'"
-					th:field="*{maodeobra}" style="height: 28px;">
+				<label for="maodeobra">Mão de obra</label> <input id="maodeobra"
+					readonly="readonly"
+					placeholder="Preço do Serviço" type="text" class="form-control"
+					th:field="*{maodeobra}">
 			</div>
 		</div>
 
@@ -87,22 +86,22 @@
 						<td th:text="${rowStat.count}">1</td>
 						<td><input type="hidden"
 							th:field="${ordemServico.pecas[__${rowStat.index}__].id}">
-							<input type="text" class="form-control"
+							<input type="text" class="form-control" readonly="readonly"
 							th:field="${ordemServico.pecas[__${rowStat.index}__].descricao}">
 						</td>
 						<td>
 							<select class="form-control" th:field="${ordemServico.pecas[__${rowStat.index}__].fornecedores}"
-							th:errorclass="is-invalid" style="height: 38px;">
-								<option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.id}"
+							th:errorclass="is-invalid" style="height: 38px;" readonly="readonly">
+								<option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.id}" 
 									th:text="${fornecedor.nome}"></option>
 							</select>
 						</td>
 						<td><input class="form-control valorpeca" type="number" onchange="mudaValor()"
-							th:field="${ordemServico.pecas[__${rowStat.index}__].quantidade}"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].quantidade}" readonly="readonly"
 							th:errorclass="is-invalid" />
 						</td>
 						<td><input class="form-control valorpeca" type="text" onchange="mudaValor()"
-							th:field="${ordemServico.pecas[__${rowStat.index}__].valor}"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].valor}" readonly="readonly"
 							th:errorclass="is-invalid" />
 						</td>
 						<td>
@@ -122,7 +121,7 @@
 
 		<div class="form-group row">
 			<label for="observacao">Descrição</label>
-			<textarea rows="3" cols="10" id="observacao" class="form-control"
+			<textarea rows="3" cols="10" id="observacao" class="form-control" readonly="readonly"
 				placeholder="Observações" th:field="*{observacao}" /></textarea>
 		</div>
 		<div class="row form-group">
@@ -135,6 +134,7 @@
 			</div>
 			<div class="p-0 col-3">
 				<label for="custopecas">Custo Peças</label> <input value="0"
+					th:field="*{custopecas}"
 					id="custopecas" type="text" class="form-control" readonly>
 			</div>
 			<div class="p-0 col-1 d-flex justify-content-center align-items-end">
@@ -143,7 +143,7 @@
 			<div class="p-0 col-4">
 				<label for="total">Total</label> <input id="total"
 					placeholder="Valor Total" type="text" class="form-control"
-					readonly="readonly">
+					th:field="*{custototal}" readonly="readonly">
 			</div>
 		</div>
 		<div
@@ -181,6 +181,10 @@
 			$('#customaodeobra').val(this.value);
 			atualizaTotal();
 		})
+		
+		$('#customaodeobra').val($('#maodeobra').val());
+
+
 	
 		$(document).ready(
 				function() {

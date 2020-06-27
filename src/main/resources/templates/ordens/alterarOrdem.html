@@ -14,19 +14,20 @@
 	rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Ordem de Serviço</title>
+<title>Alterar Ordem de Serviço</title>
 </head>
 <section class="d-flex justify-content-center flex-column p-4"
 	layout:fragment="conteudo">
-	<h2 class="d-flex justify-content-center flex-column align-self-center">Nova
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Alterar
 		Ordem de Serviço</h2>
-	<form class="p-2" th:action="@{nova}" method="post"
+	<form class="p-2" th:action="@{/ordens/nova}" method="post"
 		th:object="${ordemServico}">
+		<input type="hidden" th:field="*{id}" >
 		<div class="form-group row">
 			<label for="descricao">Descrição</label>
 			<textarea rows="3" cols="10" id="descricao" class="form-control"
 				placeholder="Descreva aqui o serviço a ser realizado"
-				th:field="*{servico}" th:classappend="${#fields.hasErrors('servico')} ? 'is-invalid'"/></textarea>
+				th:field="*{servico}" /></textarea>
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-6 pl-0 pr-0 pr-md-3 form-group">
@@ -56,8 +57,8 @@
 				</select>
 			</div>
 			<div class="col-12 col-md-6 pl-0 pr-0 form-group">
-				<label for="maodeobra">Mão de obra</label> <input id="maodeobra" value="0"
-					type="text" class="form-control" th:classappend="${#fields.hasErrors('maodeobra')} ? 'is-invalid'"
+				<label for="maodeobra">Mão de obra</label> <input id="maodeobra"
+					placeholder="Preço do Serviço" type="text" class="form-control"
 					th:field="*{maodeobra}" style="height: 28px;">
 			</div>
 		</div>
@@ -89,6 +90,10 @@
 							th:field="${ordemServico.pecas[__${rowStat.index}__].id}">
 							<input type="text" class="form-control"
 							th:field="${ordemServico.pecas[__${rowStat.index}__].descricao}">
+							<div
+								th:if="${#fields.hasErrors('${ordemServico.pecas[__${rowStat.index}__].descricao}')}"
+								class="invalid-feedback"
+								th:errors="${ordemServico.pecas[__${rowStat.index}__].descricao}"></div>
 						</td>
 						<td>
 							<select class="form-control" th:field="${ordemServico.pecas[__${rowStat.index}__].fornecedores}"
@@ -96,14 +101,26 @@
 								<option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.id}"
 									th:text="${fornecedor.nome}"></option>
 							</select>
+							<div
+								th:if="${#fields.hasErrors('${ordemServico.pecas[__${rowStat.index}__].fornecedores}')}"
+								class="invalid-feedback"
+								th:errors="${ordemServico.pecas[__${rowStat.index}__].fornecedores}"></div>
 						</td>
 						<td><input class="form-control valorpeca" type="number" onchange="mudaValor()"
 							th:field="${ordemServico.pecas[__${rowStat.index}__].quantidade}"
 							th:errorclass="is-invalid" />
+							<div
+								th:if="${#fields.hasErrors('${ordemServico.pecas[__${rowStat.index}__].quantidade}')}"
+								class="invalid-feedback"
+								th:errors="${ordemServico.pecas[__${rowStat.index}__].quantidade}"></div>
 						</td>
 						<td><input class="form-control valorpeca" type="text" onchange="mudaValor()"
 							th:field="${ordemServico.pecas[__${rowStat.index}__].valor}"
 							th:errorclass="is-invalid" />
+							<div
+								th:if="${#fields.hasErrors('${ordemServico.pecas[__${rowStat.index}__].valor}')}"
+								class="invalid-feedback"
+								th:errors="${ordemServico.pecas[__${rowStat.index}__].valor}"></div>
 						</td>
 						<td>
 							<div class="btn-group">
@@ -135,6 +152,7 @@
 			</div>
 			<div class="p-0 col-3">
 				<label for="custopecas">Custo Peças</label> <input value="0"
+					th:field="*{custopecas}"
 					id="custopecas" type="text" class="form-control" readonly>
 			</div>
 			<div class="p-0 col-1 d-flex justify-content-center align-items-end">
@@ -143,7 +161,7 @@
 			<div class="p-0 col-4">
 				<label for="total">Total</label> <input id="total"
 					placeholder="Valor Total" type="text" class="form-control"
-					readonly="readonly">
+					th:field="*{custototal}" readonly="readonly">
 			</div>
 		</div>
 		<div
@@ -181,6 +199,10 @@
 			$('#customaodeobra').val(this.value);
 			atualizaTotal();
 		})
+		
+		$('#customaodeobra').val($('#maodeobra').val());
+
+
 	
 		$(document).ready(
 				function() {
