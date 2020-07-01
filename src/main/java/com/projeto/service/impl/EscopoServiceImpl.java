@@ -36,7 +36,7 @@ public class EscopoServiceImpl implements EscopoService{
 
 	@Override
 	public Escopo getOne(Long id) {
-		// TODO Auto-generated method stub
+
 		return er.getOne(id);
 	}
 

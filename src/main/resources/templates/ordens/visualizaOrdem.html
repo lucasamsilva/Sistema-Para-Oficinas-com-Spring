@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link th:href="@{/css/bootstrap/bootstrap-switch.min.css}"
+	rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concluir Ordem de Serviço</title>
+</head>
+<section class="d-flex justify-content-center flex-column p-4"
+	layout:fragment="conteudo">
+	<h2 class="d-flex justify-content-center flex-column align-self-center">Concluir
+		Ordem de Serviço</h2>
+	<form class="p-2" th:action="@{/ordens/concluir}" method="post"
+		th:object="${ordemServico}">
+		<input type="hidden" th:field="*{id}" >
+		<input type="hidden" th:field="*{entrada}">
+		<div class="form-group row">
+			<label for="descricao">Descrição</label>
+			<textarea rows="3" cols="10" id="descricao" class="form-control"
+				placeholder="Descreva aqui o serviço a ser realizado"
+				th:field="*{servico}" readonly="readonly"/></textarea>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6 pl-0 pr-0 pr-md-3 form-group">
+				<label for="mecanico">Mecanico</label> <select id="mecanico"
+					class="form-control" th:field="*{mecanico}" readonly>
+					<option th:value="*{mecanico.id}" th:text="*{mecanico.nome}">
+				</select>
+			</div>
+			<div class="col-12 col-md-6 pl-0 pr-0 form-group">
+				<label for="cliente">Cliente</label> <select id="cliente"
+					class="form-control" th:field="*{cliente}" readonly>
+					<option th:value="*{cliente.id}"
+						th:text="*{cliente.nome}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6 pl-0 pr-0 pr-md-3 form-group">
+				<label for="carro">Carro</label> <select id="carro"
+					class="form-control" th:field="*{carro}" readonly>
+					<option th:value="*{carro.id}"
+						th:text="*{carro.placa}"></option>
+				</select>
+			</div>
+			<div class="col-12 col-md-6 pl-0 pr-0 form-group">
+				<label for="maodeobra">Mão de obra</label> <input id="maodeobra"
+					readonly="readonly"
+					placeholder="Preço do Serviço" type="text" class="form-control"
+					th:field="*{maodeobra}">
+			</div>
+		</div>
+
+		<h3>Peças</h3>
+		<div class="table-responsive update-contacts">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th style="width: 50px">#</th>
+						<th style="width: 400px">Descrição</th>
+						<th style="width: 200px">Fornecedor</th>
+						<th style="width: 100px">Quantidade</th>
+						<th style="width: 200px">Valor</th>
+					</tr>
+				</thead>
+				<tbody id="tblContacts">
+					<tr th:fragment="tabelapecas"
+						th:each="peca,rowStat : ${ordemServico.pecas}">
+						<td th:text="${rowStat.count}">1</td>
+						<td><input type="hidden"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].id}">
+							<input type="text" class="form-control" readonly="readonly"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].descricao}">
+						</td>
+						<td>
+							<select class="form-control" th:field="${ordemServico.pecas[__${rowStat.index}__].fornecedores}"
+							th:errorclass="is-invalid" style="height: 38px;" readonly="readonly">
+								<option th:each="fornecedor : ${fornecedores}" th:value="${fornecedor.id}" 
+									th:text="${fornecedor.nome}"></option>
+							</select>
+						</td>
+						<td><input class="form-control valorpeca" type="number" onchange="mudaValor()"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].quantidade}" readonly="readonly"
+							th:errorclass="is-invalid" />
+						</td>
+						<td><input class="form-control valorpeca" type="text" onchange="mudaValor()"
+							th:field="${ordemServico.pecas[__${rowStat.index}__].valor}" readonly="readonly"
+							th:errorclass="is-invalid" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+		<div class="form-group row">
+			<label for="observacao">Descrição</label>
+			<textarea rows="3" cols="10" id="observacao" class="form-control" readonly="readonly"
+				placeholder="Observações" th:field="*{observacao}" /></textarea>
+		</div>
+		<div class="row form-group">
+			<div class="p-0 col-3">
+				<label for="customaodeobra">Custo da Mão de Obra</label> <input value="0"
+					id="customaodeobra" th:field="*{maodeobra}" type="text" class="form-control" readonly>
+			</div>
+			<div class="p-0 col-1 d-flex justify-content-center align-items-end">
+				<i class="fa fa-plus mb-2"></i>
+			</div>
+			<div class="p-0 col-3">
+				<label for="custopecas">Custo Peças</label> <input value="0"
+					th:field="*{custopecas}"
+					id="custopecas" type="text" class="form-control" readonly>
+			</div>
+			<div class="p-0 col-1 d-flex justify-content-center align-items-end">
+				<i class="fa fa-pause fa-rotate-90 mb-2"></i>
+			</div>
+			<div class="p-0 col-4">
+				<label for="total">Total</label> <input id="total"
+					placeholder="Valor Total" type="text" class="form-control"
+					th:field="*{custototal}" readonly="readonly">
+			</div>
+		</div>
+		<div
+			class="form-group d-flex align-self-center justify-content-center">
+			<a href="/ordens/concluidas"><button type="button" class="btn btn-danger"
+					style="width: 100px;">Voltar</button></a>
+		</div>
+	</form>
+
+</section>
+</html>

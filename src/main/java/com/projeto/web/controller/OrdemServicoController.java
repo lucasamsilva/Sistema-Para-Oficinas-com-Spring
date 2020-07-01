@@ -125,10 +125,28 @@ public class OrdemServicoController {
 	}
 	
 	@GetMapping(value = "")
-	private ModelAndView listarOrdens() {
+	private ModelAndView listarOrdensAtivas() {
 		ModelAndView mv = new ModelAndView("/ordens/listaOrdens");
 		List<OrdemServico> ordensServico = oss.listaAtivas();
 		mv.addObject("ordens", ordensServico);
+		
+		return mv;
+	}
+	
+	@GetMapping(value = "/concluidas")
+	private ModelAndView listarOrdensConcluidas() {
+		ModelAndView mv = new ModelAndView("/ordens/listaConcluidas");
+		List<OrdemServico> ordensServico = oss.listaConcluidas();
+		mv.addObject("ordens", ordensServico);
+		
+		return mv;
+	}
+	
+	@GetMapping(value = "/concluida/{id}")
+	private ModelAndView mostraConcluida(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("/ordens/visualizaOrdem");
+		OrdemServico ordemServico = oss.getOne(id);
+		mv.addObject("ordemServico", ordemServico);
 		
 		return mv;
 	}

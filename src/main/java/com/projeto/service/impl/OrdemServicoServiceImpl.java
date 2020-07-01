@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.projeto.model.OrdemServico;
@@ -18,36 +19,42 @@ public class OrdemServicoServiceImpl implements OrdemServicoService{
 	OrdemServicoRepository ors;
 	
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('LEITURA','SERVICOS')")
 	public List<OrdemServico> findAll() {
 		
 		return ors.findAll();
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('ESCRITA','SERVICOS')")
 	public OrdemServico save(OrdemServico entity) {
 
 		return ors.save(entity);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('MODIFICACAO','SERVICOS')")
 	public OrdemServico update(OrdemServico entity) {
 		
 		return ors.save(entity);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('MODIFICACAO','SERVICOS')")
 	public OrdemServico getOne(Long id) {
 		
 		return ors.getOne(id);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('MODIFICACAO','SERVICOS')")
 	public Optional<OrdemServico> findById(Long id) {
 
 		return ors.findById(id);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('EXCLUSAO','SERVICOS')")
 	public void deleteById(Long id) {
 		ors.deleteById(id);
 		
@@ -66,9 +73,17 @@ public class OrdemServicoServiceImpl implements OrdemServicoService{
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('LEITURA','SERVICOS')")
 	public List<OrdemServico> listaAtivas() {
 		
-		return ors.ordensAbertas();
+		return ors.buscaOrdens("false");
+	}
+
+	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('LEITURA','SERVICOS')")
+	public List<OrdemServico> listaConcluidas() {
+		
+		return ors.buscaOrdens("true");
 	}
 
 }

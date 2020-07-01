@@ -42,13 +42,13 @@ public class PermissaoServiceImpl implements PermissaoService{
 
 	@Override
 	public Optional<Permissao> findById(Long id) {
-		// TODO Auto-generated method stub
+
 		return pr.findById(id);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+
 		pr.deleteById(id);
 		
 	}

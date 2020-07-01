@@ -13,9 +13,9 @@
 			<a href="ordens/nova"
 				class="btn btn-success col-12 col-md-2 mb-1 mb-md-0 mr-md-1"> <i
 				class="fa fa-users mr-1" aria-hidden="true"></i>Nova Ordem
-			</a> <a href="/ordens/concluidas"
+			</a> <a href="/ordens"
 				class="btn btn-warning col-12 col-md-2"> <i
-				class="fa fa-file-text mr-1" aria-hidden="true"></i>Ordens Finalizadas
+				class="fa fa-file-text mr-1" aria-hidden="true"></i>Ordens Abertas
 			</a>
 		</div>
 		<div class="m-1">
@@ -26,6 +26,7 @@
 						<th>Cliente</th>
 						<th>Carro</th>
 						<th>Entrada</th>
+						<th>Saida</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -36,11 +37,11 @@
 						<td th:text="${ordem.carro.modelo}"></td>
 						<td th:text="${#dates.format(ordem.entrada, 'dd/MM/yyyy')}"
 							style="width: 100px"></td>
-						<td style="width: 170px;"><a
-							class="ml-2 btn btn-warning btn-sm"
-							th:href="@{/ordens/alterar/{id}(id=${ordem.id})}">Alterar</a> <a
+						<td th:text="${#dates.format(ordem.saida, 'dd/MM/yyyy')}"
+							style="width: 100px"></td>
+						<td style="width: 80px;"><a
 							class="btn btn-success btn-sm"
-							th:href="@{/ordens/concluir/{id}(id=${ordem.id})}">Concluir</a>
+							th:href="@{/ordens/concluida/{id}(id=${ordem.id})}">Visualizar</a>
 						</td>
 					</tr>
 				</tbody>

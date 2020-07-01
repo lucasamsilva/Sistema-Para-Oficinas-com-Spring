@@ -16,10 +16,10 @@ public class OrdemServicoQueriesImpl implements OrdemServicoQueries{
 	private EntityManager entityManager;
 	
 	@Override
-	public List<OrdemServico> ordensAbertas() {
+	public List<OrdemServico> buscaOrdens(String estado) {
 		
 		TypedQuery<OrdemServico> query = 
-				entityManager.createQuery("SELECT o FROM OrdemServico o where o.concluido = false", OrdemServico.class);
+				entityManager.createQuery("SELECT o FROM OrdemServico o where o.concluido = " + estado, OrdemServico.class);
 		
 		
 		return query.getResultList();

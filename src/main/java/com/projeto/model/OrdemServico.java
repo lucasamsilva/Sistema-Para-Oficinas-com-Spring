@@ -58,7 +58,6 @@ public class OrdemServico implements Serializable{
 	private Double maodeobra;
 	private Double custopecas;
 	private Double custototal;
-	private String diretorio;
 	private String observacao;
 	public Long getId() {
 		return id;
@@ -132,12 +131,6 @@ public class OrdemServico implements Serializable{
 	public void setCustototal(Double custototal) {
 		this.custototal = custototal;
 	}
-	public String getDiretorio() {
-		return diretorio;
-	}
-	public void setDiretorio(String diretorio) {
-		this.diretorio = diretorio;
-	}
 	public String getObservacao() {
 		return observacao;
 	}
@@ -147,7 +140,7 @@ public class OrdemServico implements Serializable{
 	
 	public OrdemServico(Long id, Mecanico mecanico, Clientes cliente, Carros carro, List<PecasOrdem> pecas,
 			String servico, Date entrada, Date saida, boolean concluido, Double maodeobra, Double custopecas,
-			Double custototal, String diretorio, String observacao) {
+			Double custototal , String observacao) {
 		super();
 		this.id = id;
 		this.mecanico = mecanico;
@@ -161,7 +154,6 @@ public class OrdemServico implements Serializable{
 		this.maodeobra = maodeobra;
 		this.custopecas = custopecas;
 		this.custototal = custototal;
-		this.diretorio = diretorio;
 		this.observacao = observacao;
 	}
 	
@@ -174,7 +166,7 @@ public class OrdemServico implements Serializable{
 		return "OrdemServico [id=" + id + ", mecanico=" + mecanico + ", cliente=" + cliente + ", carro=" + carro
 				+ ", pecas=" + pecas + ", servico=" + servico + ", entrada=" + entrada + ", saida=" + saida
 				+ ", concluido=" + concluido + ", maodeobra=" + maodeobra + ", custopecas=" + custopecas
-				+ ", custototal=" + custototal + ", diretorio=" + diretorio + ", observacao=" + observacao + "]";
+				+ ", custototal=" + custototal + ", observacao=" + observacao + "]";
 	}
 	
 	@Override

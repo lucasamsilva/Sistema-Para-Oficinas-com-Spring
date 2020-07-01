@@ -23,19 +23,21 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional(readOnly = true)
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('PERMISSAO','LEITURA')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('LEITURA','ADMINISTRACAO')")
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
 		return ur.findAll();
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('ESCRITA','ADMINISTRACAO')")
 	public User save(User entity) {
 		// TODO Auto-generated method stub
 		return ur.save(entity);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('ESCRITA','ADMINISTRACAO')")
 	public User update(User entity) {
 		// TODO Auto-generated method stub
 		return ur.save(entity);
@@ -43,18 +45,21 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional(readOnly = true)
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('ESCRITA','ADMINISTRACAO')")
 	public User getOne(Long id) {
 		// TODO Auto-generated method stub
 		return ur.getOne(id);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('EXCLUSAO','ADMINISTRACAO')")
 	public void deleteById(Long id) {
 		// TODO Auto-generated method stub
 		ur.deleteById(id);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasPermission('ESCRITA','ADMINISTRACAO')")
 	public Optional<User> findById(Long id) {
 		return ur.findById(id);
 	}

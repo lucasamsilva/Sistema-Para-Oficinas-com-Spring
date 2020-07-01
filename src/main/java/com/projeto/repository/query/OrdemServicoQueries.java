@@ -6,6 +6,6 @@ import com.projeto.model.OrdemServico;
 
 public interface OrdemServicoQueries {
 
-	List<OrdemServico> ordensAbertas();
+	List<OrdemServico> buscaOrdens(String estado);
 	
 }
