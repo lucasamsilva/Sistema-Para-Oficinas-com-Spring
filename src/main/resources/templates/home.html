@@ -6,14 +6,23 @@ layout:decorate="~{layout}">
 
 <head>
 	<title>Página Inicial</title>
+	<style type="text/css">
+		
+		.jumbotron {
+			
+			background-color: #a7dbad;
+		
+		}
+		
+	</style>
 </head>
 
 <section layout:fragment="conteudo">
-    <!-- Large modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
-        modal</button>
-
-    <script type="text/javascript" th:src="@{/js/scripts/home.js}"></script>
-
+	<div class="jumbotron jumbotron-fluid m-1">
+		<div class="container">
+			<h1 class="display-4">Bem Vindo ao Oficinet.</h1>
+			<p class="lead">Acesse as funções pela barra de navegação no topo do Site.</p>
+		</div>
+	</div>
 </section>
 </html>

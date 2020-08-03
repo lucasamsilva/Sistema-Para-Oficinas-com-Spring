@@ -26,7 +26,7 @@ layout:decorate="~{layout}">
 				<td th:text="${user.name}"></td>
 				<td th:text="${user.email}"></td>
 				<td style="width: 130px;">
-					<a class="btn btn-success btn-sm ali mr-1" th:href="@{/user/{id}(id=${user.id})}">Alterar</a>
+					<a class="btn btn-success btn-sm ali mb-1 mr-md-1 mb-md-0" th:href="@{/user/{id}(id=${user.id})}">Alterar</a>
 					<button type="button" data-toggle="modal" data-target="#confirmacao" th:name="${user.id}" class="btn btn-danger btn-sm excluir">Excluir</button>
 				</td>
 			</tr>
@@ -63,7 +63,7 @@ layout:decorate="~{layout}">
 	$("#botaoconfirmacao").click(function(){
 		let id = $("#botaoconfirmacao").attr("name");
 		$.ajax({
-			url:`/carros/delete/${id}`,
+			url:`/user/delete/${id}`,
 			type:'delete',
 			success: function(){
 				console.log("OK")
